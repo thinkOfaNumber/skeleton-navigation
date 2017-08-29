@@ -1,19 +1,33 @@
 <template>
+    <require from="./abc"></require>
+    <require from="./thing"></require>
+
   <section class="au-animate">
     <h2>${heading}</h2>
     <form role="form" submit.delegate="submit()">
       <div class="form-group">
         <label for="fn">First Name</label>
-        <input type="text" value.bind="firstName" class="form-control" id="fn" placeholder="first name">
+        <input type="text" value.bind="person.firstName & validate" class="form-control" id="fn" placeholder="first name">
       </div>
       <div class="form-group">
         <label for="ln">Last Name</label>
-        <input type="text" value.bind="lastName" class="form-control" id="ln" placeholder="last name">
+        <input type="text" value.bind="person.lastName & validate" class="form-control" id="ln" placeholder="last name">
       </div>
       <div class="form-group">
         <label>Full Name</label>
         <p class="help-block">${fullName | upper}</p>
       </div>
+
+      <p>Things</p>
+      <button type="button" class="btn btn-default" click.delegate="add1()">More things</button>
+      <abc> <!-- comment out the abc open/close tags and the problem goes away! -->
+        <div repeat.for="t of person.thing1 & validate">
+          <button type="button" class="btn btn-default pull-right" click.delegate="delete1(t)">Delete</button>
+          <thing thing.bind="t" style="display: block; margin-right: 70px"></thing>
+        </div>
+      </abc> <!-- comment out the abc open/close tags and the problem goes away! -->
+      
+      <div class="clearfix"></div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
   </section>
